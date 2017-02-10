@@ -36,8 +36,8 @@ public class CoolWeatherDB {
 	public void saveProvince(Province province){
 		if(province!=null){
 			ContentValues values= new ContentValues();
-			values.put("provinceName", province.getProvinceName());
-			values.put("provinceCode", province.getProvinceCode());
+			values.put("province_name", province.getProvinceName());
+			values.put("province_code", province.getProvinceCode());
 			db.insert("Province", null, values);
 		}
 	}
@@ -64,9 +64,9 @@ public class CoolWeatherDB {
 	public void saveCity(City city){
 		if(city!=null){
 			ContentValues values=new ContentValues();
-			values.put("cityName", city.getCityName());
-			values.put("cityCede", city.getCityCode());
-			values.put("provinceId", city.getProvinceId());
+			values.put("city_name", city.getCityName());
+			values.put("city_code", city.getCityCode());
+			values.put("province_id", city.getProvinceId());
 			db.insert("City", null, values);
 		}
 	}
@@ -93,16 +93,16 @@ public class CoolWeatherDB {
 	public void saveCounty(County county){
 		if(county!=null){
 			ContentValues values=new ContentValues();
-			values.put("countyName", county.getCountyName());
-			values.put("countyCode", county.getCountyCode());
-			values.put("cityId", county.getCityId());
+			values.put("county_name", county.getCountyName());
+			values.put("county_code", county.getCountyCode());
+			values.put("city_id", county.getCityId());
 			db.insert("County", null, values);
 		}
 	}
 	//读取某城市的县级的市
 	public List<County> loadCounty(int cityId){
 		List <County> list = new ArrayList<County>();
-		Cursor cursor = db.query("County", null, "city_id = ?", new String[]{"cityId"},null, null, null);
+		Cursor cursor = db.query("County", null, "city_id = ?", new String[]{String.valueOf(cityId)},null, null, null);
 		if(cursor.moveToFirst()){
 			do{
 				County county = new County();
